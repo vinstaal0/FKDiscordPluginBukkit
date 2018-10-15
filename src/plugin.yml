@@ -1,0 +1,7 @@
+name: FKDiscordPlugin
+version: 1.0.0
+author: Vinstaal0
+main: me.Vinstaal0.FKDiscordPlugin.DiscordPlugin
+commands:
+  discord:
+    usage: /discord
