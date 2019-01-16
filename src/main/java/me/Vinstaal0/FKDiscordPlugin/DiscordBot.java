@@ -38,21 +38,27 @@ public class DiscordBot {
 
         System.out.println("Servers: " + api.getServers().toString());
 
+        this.log("Test");
+
+        this.api.addMessageCreateListener(event -> {
+            if (event.getMessage().getContent().equalsIgnoreCase("!ping")) {
+                System.out.println("Pong");
+                event.getChannel().sendMessage("Pong!");
+                event.getChannel().sendMessage("Servers: " + api.getServers());
+            }
+
+        });
+
         // Log a message, if the bot joined or left a server
         api.addServerJoinListener(event -> System.out.println("Joined server " + event.getServer().getName()));
         api.addServerLeaveListener(event -> System.out.println("Left server " + event.getServer().getName()));
+
+        System.out.println("Servers: " + api.getServers().toString());
 
         // Discord commands
         CommandHandler cmdHandler = new JavacordHandler(api);
 
         cmdHandler.registerCommand(new DiscordCommand());
-
-        this.api.addMessageCreateListener(event -> {
-            if (event.getMessage().getContent().equalsIgnoreCase("!ping")) {
-                event.getChannel().sendMessage("Pong!");
-            }
-
-        });
 
         System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
 
